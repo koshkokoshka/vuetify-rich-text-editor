@@ -1,2 +1,2 @@
-# vuetify-rich-text-editor
-Rich text editor component for Vuetify 2
+# Rich text editor for Vuetify 2
+A minimalistic component without external dependencies and extra styles
