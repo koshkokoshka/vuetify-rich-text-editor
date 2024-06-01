@@ -6,7 +6,7 @@
       'error--text': isError,
       'primary--text': isFocused,
       'v-input--is-focused': isFocused || isError,
-      'v-input--is-dirty': isDirty,
+      'v-input--is-dirty': isDirty
     }"
     :error-messages="errorMessages"
     :hide-details="hideDetails && errorMessages.length === 0"
@@ -33,9 +33,9 @@
           'v-label--active': isFocused || isDirty,
           'v-label--is-disabled': disabled,
           'primary--text': isFocused,
-          'error--text': isError,
+          'error--text': isError
         }"
-        style="left: 0px; right: auto; position: absolute"
+        style="left: 0; right: auto; position: absolute"
       >
         {{ label }}
       </label>
@@ -209,7 +209,7 @@
 
 <style>
 .v-input.atis-wysiwyg [contenteditable]:focus {
-  outline: 0px solid transparent;
+  outline: 0 solid transparent;
 }
 .v-input.atis-wysiwyg [contenteditable] {
   color: rgba(0, 0, 0, 0.87);
@@ -281,9 +281,7 @@ export default {
   data() {
     return {
       text: "",
-      selectedColor: "#000000",
       isFocused: false,
-      inputDebounceTimer: null,
       isBold: false,
       isItalic: false,
       isUnderline: false,
@@ -333,10 +331,6 @@ export default {
     document.execCommand('defaultParagraphSeparator', false, 'p');
 
     if (typeof this.value === "string") {
-      // this.$refs.input.innerHTML = marked.parse(this.value, {
-      //   mangle: false,
-      //   headerIds: false,
-      // });
       this.text = this.value;
     } else {
       this.clear(true);
@@ -365,9 +359,6 @@ export default {
     },
     applyOl() {
       document.execCommand("insertOrderedList");
-    },
-    removeFormat() {
-      document.execCommand("removeFormat");
     },
 
     checkIsFocused() {
@@ -415,12 +406,7 @@ export default {
     onInput(event) {
       // update toolbar buttons
       this.updateButtonsState();
-
-      // debounce v-model change
-      clearTimeout(this.inputDebounceTimer); // cancel pending call
-      this.inputDebounceTimer = setTimeout(() => {
-        this.$emit("input", event.target.innerHTML);
-      }, 100);
+      this.$emit("input", event.target.innerHTML);
     },
 
     onPaste(event) {

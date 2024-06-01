@@ -1,5 +1,5 @@
 # Rich text editor for Vuetify 2
-A minimalistic component without external dependencies and extra styles
+A minimalistic component without external dependencies and unnecessary styles
 
 <img src="screenshot.png" alt="Screenshot">
 
