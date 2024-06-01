@@ -1,28 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <!-- <v-textarea/> тут только для того, чтобы автоматически подтянулись стили -->
+    <v-textarea style="display: none;"/>
+
+    <v-main>
+      <v-card style="margin: 50px auto; width: 800px;">
+        <v-card-text>
+          <RichTextEditor
+              v-model="text"
+              label="Поле ввода текста"
+              hide-details
+              :error-messages="getTextErrors()"
+          />
+        </v-card-text>
+        <v-card-text style="padding-bottom: 0" v-if="text">Результат:</v-card-text>
+        <v-card-text style="font-size: small;">{{ text }}</v-card-text>
+      </v-card>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import RichTextEditor from "@/components/RichTextEditor.vue";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    RichTextEditor
+  },
+
+  data: () => ({
+    text: ''
+  }),
+
+  methods: {
+    getTextErrors() {
+      if (this.text.length === 0) {
+        return ['Не указан текст']
+      }
+      return [];
+    }
+  }
+};
+</script>
